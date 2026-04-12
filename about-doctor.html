@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>의료진소개 | 도두리동물병원</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="sub.css" />
+  <style>
+    /* ===== 의료진소개 ===== */
+    .doctor-card {
+      display: flex;
+      flex-direction: row;
+      gap: 56px;
+      align-items: stretch; /* 사진 높이 = 텍스트 높이 */
+      background: var(--bg-light);
+      border-radius: 20px;
+      padding: 52px 60px;
+    }
+
+    /* 왼쪽: 프로필 사진 */
+    .doctor-photo-wrap {
+      flex: 0 0 260px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 노이미지 플레이스홀더 */
+    .doctor-no-photo {
+      flex: 1;
+      min-height: 240px;
+      background: #e8dfd3;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .doctor-no-photo i {
+      font-size: 52px;
+      color: var(--primary-light);
+      opacity: 0.55;
+    }
+    .doctor-no-photo span {
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 0.5px;
+    }
+
+    /* 오른쪽: 정보 */
+    .doctor-detail {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .doctor-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--dark);
+      padding-bottom: 18px;
+      margin-bottom: 0;
+      border-bottom: 1px solid #d8cfc4;
+    }
+
+    .doctor-groups {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .doctor-group {
+      padding: 18px 0;
+      border-bottom: 1px solid #ece6dc;
+    }
+    .doctor-group:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .doctor-group ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .doctor-group ul li {
+      font-size: 14px;
+      color: #5a5149;
+      line-height: 1.7;
+      padding-left: 16px;
+      position: relative;
+    }
+    .doctor-group ul li::before {
+      content: '·';
+      position: absolute;
+      left: 2px;
+      color: var(--primary);
+      font-weight: 900;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    /* ===== 반응형 ===== */
+    @media (max-width: 768px) {
+      .doctor-card {
+        flex-direction: column;
+        gap: 32px;
+        padding: 36px 28px;
+      }
+      .doctor-photo-wrap {
+        flex: none;
+        width: 100%;
+      }
+      .doctor-no-photo {
+        min-height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 공통 헤더 (include.js가 삽입) -->
+  <div id="page-header"></div>
+
+  <!-- ===== 서브 페이지 헤더 ===== -->
+  <div class="sub-page-header">
+    <div class="sub-page-header-bg" style="background-image: url('https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=1600&q=80')"></div>
+    <div class="sub-page-header-overlay"></div>
+    <div class="container sub-page-header-content">
+      <h1>병원소개</h1>
+      <p>도두리동물병원을 소개합니다</p>
+      <nav class="breadcrumb">
+        <a href="main.html">홈</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="about.html">병원소개</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>의료진소개</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===== 서브 탭 ===== -->
+  <div class="sub-tab-nav">
+    <div class="container">
+      <ul class="sub-tab-list">
+        <li><a href="about.html"          class="sub-tab-link">인사말</a></li>
+        <li><a href="about-doctor.html"   class="sub-tab-link active">의료진소개</a></li>
+        <li><a href="about-facility.html" class="sub-tab-link">시설소개</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 콘텐츠 ===== -->
+  <main>
+    <section class="section">
+      <div class="container">
+
+        <div class="section-header">
+          <h2 class="section-title">의료진 소개</h2>
+        </div>
+
+        <!-- 의료진 카드 -->
+        <div class="doctor-card">
+
+          <!-- 왼쪽: 프로필 사진 (실제 사진으로 교체 시 doctor-no-photo를 img 태그로 변경) -->
+          <div class="doctor-photo-wrap">
+            <div class="doctor-no-photo">
+              <i class="fas fa-user"></i>
+              <span>사진 준비중</span>
+            </div>
+          </div>
+
+          <!-- 오른쪽: 상세 정보 -->
+          <div class="doctor-detail">
+            <h3 class="doctor-name">김한민 원장</h3>
+
+            <div class="doctor-groups">
+
+              <!-- 학력 -->
+              <div class="doctor-group">
+                <ul>
+                  <li>전남대학교 수의과대학 수의학과 졸업</li>
+                </ul>
+              </div>
+
+              <!-- 경력 -->
+              <div class="doctor-group">
+                <ul>
+                  <li>前) 부산 H 동물메디컬센터 진료수의사</li>
+                  <li>前) 평택 B 동물의료센터 진료수의사</li>
+                  <li>前) 거제 G 동물메디컬센터 원장</li>
+                  <li>前) 인천 D 동물병원 부원장</li>
+                  <li>前) 부천 B 동물전문의료센터 진료과장</li>
+                  <li>前) 인천 A 동물의료센터 부원장</li>
+                </ul>
+              </div>
+
+              <!-- 학회 -->
+              <div class="doctor-group">
+                <ul>
+                  <li>대한수의사회 정회원</li>
+                </ul>
+              </div>
+
+              <!-- 학술활동 -->
+              <div class="doctor-group">
+                <ul>
+                  <li>세계소동물수의사회 (2011)</li>
+                  <li>부산수의컨퍼런스 (2018, 2019)</li>
+                  <li>영남수의컨퍼런스 (2019, 2021)</li>
+                  <li>경기북부수의컨퍼런스 (2024, 2025)</li>
+                  <li>인천수의컨퍼런스 (2025)</li>
+                </ul>
+              </div>
+
+            </div><!-- /.doctor-groups -->
+          </div><!-- /.doctor-detail -->
+
+        </div><!-- /.doctor-card -->
+
+      </div>
+    </section>
+  </main>
+
+  <!-- 공통 푸터 (include.js가 삽입) -->
+  <div id="page-footer"></div>
+
+  <script src="include.js"></script>
+  <script src="script.js"></script>
+  <script src="sub.js"></script>
+</body>
+</html>

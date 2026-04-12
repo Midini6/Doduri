@@ -1146,7 +1146,7 @@ footer { background: var(--dark); }
   height: 36px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 2px 8px rgba(184,148,90,0.3));
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(255,255,255,0.1));
   transition: var(--transition);
 }
 .footer-logo-img:hover {
