@@ -14,7 +14,7 @@
   document.getElementById('page-footer').innerHTML = footerHTML;
 
   // 현재 페이지에 맞는 nav 항목에 active-menu 클래스 부여
-  const page = location.pathname.split('/').pop() || 'main.html';
+  const page = location.pathname.split('/').pop() || 'index.html';
   const activeMap = [
     { prefix: 'about',   key: 'about'   },
     { prefix: 'service', key: 'service' },
