@@ -105,7 +105,7 @@ document.addEventListener('app-ready', function () {
   /* ===== BACK TO TOP ===== */
   const backToTop = document.getElementById('backToTop');
   window.addEventListener('scroll', () => {
-    backToTop.classList.toggle('visible', window.scrollY > 400);
+    backToTop.classList.toggle('visible', window.scrollY > 200);
   }, { passive: true });
   backToTop.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -268,11 +268,13 @@ ul { list-style: none; }
   display: block;
   width: 24px;
   height: 2px;
-  background: white;
+  background: var(--dark);
   border-radius: 2px;
   transition: var(--transition);
 }
-#header.scrolled .hamburger span { background: var(--dark); }
+/* 홈 페이지만 히어로 위에서 흰색 → 스크롤 후 dark */
+body.page-home .hamburger span { background: white; }
+body.page-home #header.scrolled .hamburger span { background: var(--dark); }
 
 /* Mobile Nav */
 .mobile-nav {
