@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="sub.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/sub.css" />
   <style>
     /* ===== 진료과목 ===== */
     .service-list {
@@ -181,6 +181,175 @@
       font-size: 13px;
     }
 
+    /* ===== 오시는길 ===== */
+    .location-wrap {
+      display: flex;
+      gap: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+    }
+
+    /* 왼쪽: 지도 */
+    .location-map {
+      flex: 0 0 55%;
+      min-height: 520px;
+      background: #e8eaed;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background:
+        linear-gradient(rgba(200,210,220,0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,210,220,0.4) 1px, transparent 1px),
+        #dce3ea;
+      background-size: 40px 40px, 40px 40px, 100% 100%;
+      color: #8a96a3;
+      text-align: center;
+    }
+    .map-placeholder i {
+      font-size: 48px;
+      color: var(--primary);
+      opacity: 0.6;
+    }
+    .map-placeholder p { font-size: 15px; font-weight: 600; margin: 0; }
+    .map-placeholder small { font-size: 12px; opacity: 0.7; }
+
+    /* 오른쪽: 정보 패널 */
+    .location-info {
+      flex: 1;
+      background: #fff;
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .location-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .location-title i { color: var(--primary); font-size: 16px; }
+
+    .location-address {
+      font-size: 13px;
+      color: #5a5149;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    /* 교통수단 */
+    .location-access {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .location-access li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: #5a5149;
+      line-height: 1.6;
+    }
+    .location-access li i {
+      color: var(--primary);
+      font-size: 13px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      width: 14px;
+      text-align: center;
+    }
+    .access-label {
+      font-weight: 700;
+      color: var(--dark);
+      white-space: nowrap;
+      min-width: 36px;
+    }
+
+    /* 지도 버튼 */
+    .location-map-btns {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: filter 0.2s;
+      text-decoration: none;
+    }
+    .map-btn:hover { filter: brightness(0.92); }
+    .map-btn.naver  { background: #03C75A; color: #fff; }
+    .map-btn.kakao  { background: #FEE500; color: #3c1e1e; }
+
+    /* 구분선 */
+    .location-divider {
+      border: none;
+      border-top: 1px solid #ece6dc;
+      margin: 16px 0;
+    }
+
+    /* 진료시간 */
+    .loc-hours h4,
+    .loc-contact h4 {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .loc-hours-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    .loc-hours-row {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: #5a5149;
+    }
+    .loc-hours-row .lh-label {
+      font-weight: 600;
+      color: var(--dark);
+      white-space: nowrap;
+      min-width: 52px;
+    }
+    .loc-notice {
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .loc-contact p {
+      font-size: 14px;
+      color: #5a5149;
+      margin: 0;
+    }
+
     /* ===== 반응형 ===== */
     @media (max-width: 768px) {
       .service-item {
@@ -198,6 +367,16 @@
       }
       .hours-card {
         padding: 36px 28px;
+      }
+      .location-wrap {
+        flex-direction: column;
+      }
+      .location-map {
+        flex: none;
+        min-height: 260px;
+      }
+      .location-info {
+        padding: 28px 24px;
       }
     }
   </style>
@@ -226,9 +405,8 @@
   <div class="sub-tab-nav">
     <div class="container">
       <ul class="sub-tab-list">
-        <li><a href="#subject" class="sub-tab-link">진료과목</a></li>
-        <li><a href="#hours" class="sub-tab-link">진료시간</a></li>
-        <li><a href="#location" class="sub-tab-link">오시는길</a></li>
+        <li><a href="service-subject.html"   class="sub-tab-link active">진료과목</a></li>
+        <li><a href="service-location.html" class="sub-tab-link">진료시간 / 오시는 길</a></li>
       </ul>
     </div>
   </div>
@@ -240,7 +418,6 @@
       <div class="container">
         <div class="section-header">
           <p class="section-tag">진료과목</p>
-          <h2 class="section-title">도두리동물병원 진료과목</h2>
         </div>
         <div class="service-list">
 
@@ -320,50 +497,13 @@
       </div>
     </section>
 
-    <section id="hours" class="section bg-light">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-tag">진료시간</p>
-          <h2 class="section-title">진료시간 안내</h2>
-        </div>
-
-        <div class="hours-card">
-          <div class="hours-rows">
-            <div class="hours-row">
-              <span class="hours-label"><i class="fas fa-clock"></i>진료시간</span>
-              <span class="hours-value">오전 10시 ~ 오후 7시</span>
-            </div>
-            <div class="hours-row">
-              <span class="hours-label"><i class="fas fa-coffee"></i>휴게시간</span>
-              <span class="hours-value">오후 1시 ~ 오후 2시</span>
-            </div>
-          </div>
-          <p class="hours-notice"><i class="fas fa-info-circle"></i>목요일, 일요일은 휴진입니다.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="location" class="section">
-      <div class="container">
-        <div class="section-header">
-          <p class="section-tag">오시는길</p>
-          <h2 class="section-title">찾아오시는 방법</h2>
-        </div>
-        <div class="content-placeholder">
-          <i class="fas fa-map-marker-alt"></i>
-          <p>오시는길 내용을 입력해 주세요</p>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <!-- 공통 푸터 (include.js가 삽입) -->
   <div id="page-footer"></div>
 
-  <script src="include.js"></script>
-  <script src="script.js"></script>
-  <script src="sub.js"></script>
+  <script src="js/include.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/sub.js"></script>
 </body>
 </html>

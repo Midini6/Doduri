@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="sub.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/sub.css" />
 </head>
 <body>
 
@@ -26,7 +26,7 @@
       <nav class="breadcrumb">
         <a href="index.html">홈</a>
         <i class="fas fa-chevron-right"></i>
-        <a href="about.html">병원소개</a>
+        <a href="about-greeting.html">병원소개</a>
         <i class="fas fa-chevron-right"></i>
         <span>시설소개</span>
       </nav>
@@ -37,7 +37,7 @@
   <div class="sub-tab-nav">
     <div class="container">
       <ul class="sub-tab-list">
-        <li><a href="about.html"          class="sub-tab-link">인사말</a></li>
+        <li><a href="about-greeting.html"          class="sub-tab-link">인사말</a></li>
         <li><a href="about-doctor.html"   class="sub-tab-link">의료진소개</a></li>
         <li><a href="about-facility.html" class="sub-tab-link active">시설소개</a></li>
       </ul>
@@ -46,25 +46,85 @@
 
   <!-- ===== 콘텐츠 ===== -->
   <main>
-    <section class="section">
+    <section class="section facility-section">
       <div class="container">
-        <div class="section-header">
-          <p class="section-tag">시설소개</p>
-          <h2 class="section-title">쾌적하고 안전한 진료 환경</h2>
+        <div class="page-section-heading">
+          <h2>병원 시설</h2>
         </div>
-        <div class="content-placeholder">
-          <i class="fas fa-clinic-medical"></i>
-          <p>시설 소개 내용을 입력해 주세요</p>
-        </div>
+
+        <!-- 시설 슬라이더 -->
+        <div class="facility-slider">
+
+          <!-- 메인 이미지 영역 -->
+          <div class="facility-slider-main">
+            <button class="slider-btn slider-prev" aria-label="이전 이미지">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="slider-track">
+              <div class="slider-slide active">
+                <img src="images/facility/facility1.jpg" alt="병원 시설 1" />
+              </div>
+              <div class="slider-slide">
+                <img src="images/facility/facility2.jpg" alt="병원 시설 2" />
+              </div>
+              <div class="slider-slide">
+                <img src="images/facility/facility3.jpg" alt="병원 시설 3" />
+              </div>
+              <div class="slider-slide">
+                <img src="images/facility/facility4.jpg" alt="병원 시설 4" />
+              </div>
+            </div>
+
+            <button class="slider-btn slider-next" aria-label="다음 이미지">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <!-- 슬라이드 카운터 -->
+            <div class="slider-counter">
+              <span class="slider-current">1</span> / <span class="slider-total">4</span>
+            </div>
+          </div>
+
+          <!-- 썸네일 -->
+          <div class="facility-thumbs">
+            <div class="facility-thumb active" data-index="0">
+              <img src="images/facility/facility1.jpg" alt="시설 썸네일 1" />
+            </div>
+            <div class="facility-thumb" data-index="1">
+              <img src="images/facility/facility2.jpg" alt="시설 썸네일 2" />
+            </div>
+            <div class="facility-thumb" data-index="2">
+              <img src="images/facility/facility3.jpg" alt="시설 썸네일 3" />
+            </div>
+            <div class="facility-thumb" data-index="3">
+              <img src="images/facility/facility4.jpg" alt="시설 썸네일 4" />
+            </div>
+          </div>
+
+        </div><!-- /facility-slider -->
       </div>
     </section>
   </main>
 
+  <!-- 라이트박스 -->
+  <div id="facilityLightbox" class="facility-lightbox" role="dialog" aria-modal="true" aria-label="시설 이미지 확대">
+    <button class="lightbox-close" aria-label="닫기"><i class="fas fa-times"></i></button>
+    <button class="lightbox-prev"  aria-label="이전"><i class="fas fa-chevron-left"></i></button>
+    <div class="lightbox-img-wrap">
+      <img id="lightboxImg" src="" alt="" />
+    </div>
+    <button class="lightbox-next"  aria-label="다음"><i class="fas fa-chevron-right"></i></button>
+    <div class="lightbox-counter">
+      <span id="lightboxCurrent">1</span> / <span id="lightboxTotal">4</span>
+    </div>
+  </div>
+
   <!-- 공통 푸터 (include.js가 삽입) -->
   <div id="page-footer"></div>
 
-  <script src="include.js"></script>
-  <script src="script.js"></script>
-  <script src="sub.js"></script>
+  <script src="js/include.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/sub.js"></script>
 </body>
 </html>

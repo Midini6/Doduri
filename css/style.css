@@ -230,6 +230,7 @@ ul { list-style: none; }
   font-size: 14px;
   color: var(--dark-2);
   transition: var(--transition);
+  white-space: nowrap;
 }
 .dropdown li a:hover {
   color: var(--primary);
@@ -378,7 +379,7 @@ ul { list-style: none; }
   margin-bottom: 24px;
 }
 .hero-content h1 {
-  font-size: clamp(36px, 5.5vw, 68px);
+  font-size: clamp(26px, 4vw, 56px);
   font-weight: 800;
   line-height: 1.18;
   letter-spacing: -0.02em;
