@@ -166,13 +166,14 @@ ul { list-style: none; }
 #header.scrolled .logo:hover .logo-icon img {
   filter: drop-shadow(0 4px 16px rgba(158,123,79,0.35));
 }
-.logo-text { display: flex; flex-direction: column; }
+.logo-text { display: flex; flex-direction: column; white-space: nowrap; }
 .logo-main {
   font-size: 18px;
   font-weight: 800;
   color: var(--white);
   line-height: 1.2;
   transition: var(--transition);
+  white-space: nowrap;
 }
 .logo-sub {
   font-size: 10px;
@@ -180,6 +181,7 @@ ul { list-style: none; }
   color: rgba(255,255,255,0.7);
   letter-spacing: 1px;
   transition: var(--transition);
+  white-space: nowrap;
 }
 #header.scrolled .logo-main { color: var(--dark); }
 #header.scrolled .logo-sub { color: var(--gray); }
@@ -1131,93 +1133,70 @@ ul { list-style: none; }
 
 /* ===== FOOTER ===== */
 footer { background: var(--dark); }
-.footer-top { padding: 80px 0 60px; }
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap: 50px;
+
+.footer-body {
+  padding: 60px 0 40px;
+  text-align: center;
 }
-.footer-logo {
-  display: flex;
+
+/* 로고 + 병원명 */
+.footer-identity {
+  display: inline-flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
-.footer-logo-img {
+.footer-symbol {
   height: 36px;
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(255,255,255,0.1));
-  transition: var(--transition);
+  filter: brightness(0) invert(1);
 }
-.footer-logo-img:hover {
-  transform: rotate(-6deg) scale(1.08);
-}
-.footer-logo span {
-  display: block;
-  font-size: 18px;
+.footer-name {
+  font-size: 17px;
   font-weight: 800;
-  color: white;
+  color: #fff;
+  line-height: 1.3;
 }
-.footer-logo small {
-  font-size: 11px;
+.footer-name-en {
+  font-size: 10px;
   color: rgba(255,255,255,0.4);
+  letter-spacing: 1.5px;
 }
-.footer-brand > p {
-  font-size: 14px;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.7;
-  margin-bottom: 24px;
-}
-.social-links { display: flex; gap: 12px; }
-.social-links a {
-  width: 38px; height: 38px;
-  background: rgba(255,255,255,0.07);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.5);
-  font-size: 15px;
-  transition: var(--transition);
-}
-.social-links a:hover {
-  background: var(--primary);
-  color: white;
-  transform: translateY(-2px);
-}
-.footer-links h4, .footer-contact h4 {
-  font-size: 14px;
-  font-weight: 700;
-  color: white;
+
+/* 사업자 정보 */
+.footer-biz {
   margin-bottom: 20px;
-  letter-spacing: 0.5px;
 }
-.footer-links ul { display: flex; flex-direction: column; gap: 10px; }
-.footer-links a {
-  font-size: 14px;
-  color: rgba(255,255,255,0.5);
-  transition: var(--transition);
+.footer-biz p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.9;
 }
-.footer-links a:hover { color: var(--primary-light); padding-left: 4px; }
-.footer-contact p {
-  font-size: 14px;
-  color: rgba(255,255,255,0.55);
-  margin-bottom: 10px;
+
+/* 빠른 링크 */
+.footer-quick {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
-.footer-contact p i { color: var(--primary-light); font-size: 13px; }
-.footer-contact .closed-info { color: rgba(239,68,68,0.7); }
+.footer-quick a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  transition: color 0.2s;
+}
+.footer-quick a:hover { color: var(--primary-light); }
+.footer-quick span {
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+}
+
+/* 하단 바 */
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.07);
-  padding: 24px 0;
-}
-.footer-bottom .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
+  padding: 20px 0;
+  text-align: center;
 }
 .footer-bottom p {
   font-size: 12px;
