@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>진료시간 / 오시는길 | 도두리동물병원</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/sub.css" />
+  <style>
+    /* ===== 오시는길 ===== */
+    .location-wrap {
+      display: flex;
+      gap: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+    }
+
+    /* 왼쪽: 지도 */
+    .location-map {
+      flex: 0 0 55%;
+      min-height: 520px;
+      background: #e8eaed;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background:
+        linear-gradient(rgba(200,210,220,0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,210,220,0.4) 1px, transparent 1px),
+        #dce3ea;
+      background-size: 40px 40px, 40px 40px, 100% 100%;
+      color: #8a96a3;
+      text-align: center;
+    }
+    .map-placeholder i { font-size: 48px; color: var(--primary); opacity: 0.6; }
+    .map-placeholder p { font-size: 15px; font-weight: 600; margin: 0; }
+    .map-placeholder small { font-size: 12px; opacity: 0.7; }
+
+    /* 오른쪽: 정보 패널 */
+    .location-info {
+      flex: 1;
+      background: #fff;
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .location-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .location-title i { color: var(--primary); font-size: 16px; }
+
+    .location-address {
+      font-size: 13px;
+      color: #5a5149;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    /* 교통수단 */
+    .location-access {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .location-access li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: #5a5149;
+      line-height: 1.6;
+    }
+    .location-access li i {
+      color: var(--primary);
+      font-size: 13px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      width: 14px;
+      text-align: center;
+    }
+    .access-label {
+      font-weight: 700;
+      color: var(--dark);
+      white-space: nowrap;
+      min-width: 36px;
+    }
+
+    /* 지도 버튼 */
+    .location-map-btns {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: filter 0.2s;
+      text-decoration: none;
+    }
+    .map-btn:hover { filter: brightness(0.92); }
+    .map-btn.naver  { background: #03C75A; color: #fff; }
+    .map-btn.kakao  { background: #FEE500; color: #3c1e1e; }
+
+    /* 구분선 */
+    .location-divider {
+      border: none;
+      border-top: 1px solid #ece6dc;
+      margin: 16px 0;
+    }
+
+    /* 진료시간 */
+    .loc-hours h4,
+    .loc-contact h4 {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .loc-hours-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    .loc-hours-row {
+      display: flex;
+      gap: 16px;
+      font-size: 13px;
+      color: #5a5149;
+    }
+    .loc-hours-row .lh-label {
+      font-weight: 600;
+      color: var(--dark);
+      white-space: nowrap;
+      min-width: 52px;
+    }
+    .loc-notice {
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .loc-contact p {
+      font-size: 14px;
+      color: #5a5149;
+      margin: 0;
+    }
+
+    /* ===== 반응형 ===== */
+    @media (max-width: 768px) {
+      .location-wrap {
+        flex-direction: column;
+      }
+      .location-map {
+        flex: none;
+        min-height: 260px;
+      }
+      .location-info {
+        padding: 28px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 공통 헤더 (include.js가 삽입) -->
+  <div id="page-header"></div>
+
+  <!-- ===== 서브 페이지 헤더 ===== -->
+  <div class="sub-page-header">
+    <div class="sub-page-header-bg" style="background-image: url('https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=1600&q=80')"></div>
+    <div class="sub-page-header-overlay"></div>
+    <div class="container sub-page-header-content">
+      <h1>진료안내</h1>
+      <p>도두리동물병원의 진료 서비스를 안내합니다</p>
+      <nav class="breadcrumb">
+        <a href="index.html">홈</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="service-subject.html">진료안내</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>진료시간 / 오시는 길</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===== 서브 탭 ===== -->
+  <div class="sub-tab-nav">
+    <div class="container">
+      <ul class="sub-tab-list">
+        <li><a href="service-subject.html"          class="sub-tab-link">진료과목</a></li>
+        <li><a href="service-location.html" class="sub-tab-link active">진료시간 / 오시는 길</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 콘텐츠 ===== -->
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-tag">진료시간 / 오시는길</p>
+        </div>
+
+        <div class="location-wrap">
+
+          <!-- 왼쪽: 지도 (추후 API 연동) -->
+          <div class="location-map">
+            <div class="map-placeholder">
+              <i class="fas fa-map-marked-alt"></i>
+              <p>지도 준비중</p>
+              <small>지도 API 연동 후 표시됩니다</small>
+            </div>
+          </div>
+
+          <!-- 오른쪽: 정보 패널 -->
+          <div class="location-info">
+
+            <h3 class="location-title">
+              <i class="fas fa-paw"></i>
+              도두리동물병원 오시는 길
+            </h3>
+            <p class="location-address">인천 계양구 용종로 2 계산프라자, 도두리동물병원</p>
+
+            <ul class="location-access">
+              <li>
+                <i class="fas fa-subway"></i>
+                <span class="access-label">지하철</span>
+                <span></span>
+              </li>
+              <li>
+                <i class="fas fa-bus"></i>
+                <span class="access-label">버스</span>
+                <span></span>
+              </li>
+              <li>
+                <i class="fas fa-car"></i>
+                <span class="access-label">주차</span>
+                <span>건물 지하주차장 이용</span>
+              </li>
+            </ul>
+
+            <!-- 지도 앱 연결 버튼 (링크 추후 입력) -->
+            <div class="location-map-btns">
+              <a href="#" class="map-btn naver" onclick="alert('네이버 지도 링크를 입력해 주세요.'); return false;">
+                네이버 지도
+              </a>
+              <a href="#" class="map-btn kakao" onclick="alert('카카오 지도 링크를 입력해 주세요.'); return false;">
+                카카오 지도
+              </a>
+            </div>
+
+            <hr class="location-divider" />
+
+            <!-- 진료시간 -->
+            <div class="loc-hours">
+              <h4>진료시간</h4>
+              <div class="loc-hours-rows">
+                <div class="loc-hours-row">
+                  <span class="lh-label">진료시간</span>
+                  <span>오전 10시 ~ 오후 7시</span>
+                </div>
+                <div class="loc-hours-row">
+                  <span class="lh-label">휴게시간</span>
+                  <span>오후 1시 ~ 오후 2시</span>
+                </div>
+              </div>
+              <p class="loc-notice">※ 목요일, 일요일은 휴진입니다.</p>
+            </div>
+
+            <hr class="location-divider" />
+
+            <!-- 전화번호 -->
+            <div class="loc-contact">
+              <h4>전화번호</h4>
+              <p>000-000-0000</p>
+            </div>
+
+            <hr class="location-divider" />
+
+            <!-- E-mail -->
+            <div class="loc-contact">
+              <h4>E-mail</h4>
+              <p>doduri@naver.com</p>
+            </div>
+
+          </div><!-- /.location-info -->
+        </div><!-- /.location-wrap -->
+      </div>
+    </section>
+  </main>
+
+  <!-- 공통 푸터 (include.js가 삽입) -->
+  <div id="page-footer"></div>
+
+  <script src="js/include.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/sub.js"></script>
+</body>
+</html>
