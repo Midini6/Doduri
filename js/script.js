@@ -32,7 +32,27 @@ document.addEventListener('app-ready', function () {
   hamburger.addEventListener('click', openMobileNav);
   mobileClose.addEventListener('click', closeMobileNav);
   mobileOverlay.addEventListener('click', closeMobileNav);
-  mobileLinks.forEach(l => l.addEventListener('click', closeMobileNav));
+
+  mobileLinks.forEach(l => {
+    if (l.classList.contains('mobile-parent')) {
+      l.addEventListener('click', function (e) {
+        e.preventDefault();
+        const sub = this.nextElementSibling;
+        const isOpen = this.classList.contains('open');
+        // 다른 열린 항목 닫기
+        document.querySelectorAll('.mobile-parent.open').forEach(p => {
+          p.classList.remove('open');
+          if (p.nextElementSibling) p.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+          this.classList.add('open');
+          if (sub) sub.classList.add('open');
+        }
+      });
+    } else {
+      l.addEventListener('click', closeMobileNav);
+    }
+  });
 
   /* ===== HERO SLIDER ===== */
   const slides   = document.querySelectorAll('.hero-slide');

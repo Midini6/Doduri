@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/sub.css" />
+  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=hryk24ewr3&submodules=geocoder"></script>
   <style>
     /* ===== 오시는길 ===== */
     .location-wrap {
@@ -176,7 +177,7 @@
     }
 
     /* ===== 반응형 ===== */
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       .location-wrap {
         flex-direction: column;
       }
@@ -232,13 +233,9 @@
 
         <div class="location-wrap">
 
-          <!-- 왼쪽: 지도 (추후 API 연동) -->
+          <!-- 왼쪽: 네이버 지도 -->
           <div class="location-map">
-            <div class="map-placeholder">
-              <i class="fas fa-map-marked-alt"></i>
-              <p>지도 준비중</p>
-              <small>지도 API 연동 후 표시됩니다</small>
-            </div>
+            <div id="naver-map" style="width:100%;height:100%;"></div>
           </div>
 
           <!-- 오른쪽: 정보 패널 -->
@@ -252,14 +249,9 @@
 
             <ul class="location-access">
               <li>
-                <i class="fas fa-subway"></i>
-                <span class="access-label">지하철</span>
-                <span></span>
-              </li>
-              <li>
                 <i class="fas fa-bus"></i>
                 <span class="access-label">버스</span>
-                <span></span>
+                <span>계산중학교 / 부평동초등학교 / 대동아파트 정류장 하차 (도보 5분 이내)</span>
               </li>
               <li>
                 <i class="fas fa-car"></i>
@@ -268,12 +260,12 @@
               </li>
             </ul>
 
-            <!-- 지도 앱 연결 버튼 (링크 추후 입력) -->
+            <!-- 지도 앱 연결 버튼 -->
             <div class="location-map-btns">
-              <a href="#" class="map-btn naver" onclick="alert('네이버 지도 링크를 입력해 주세요.'); return false;">
+              <a href="https://map.naver.com/v5/search/인천 계양구 용종로 2 도두리동물병원" target="_blank" class="map-btn naver">
                 네이버 지도
               </a>
-              <a href="#" class="map-btn kakao" onclick="alert('카카오 지도 링크를 입력해 주세요.'); return false;">
+              <a href="https://map.kakao.com/link/search/도두리동물병원" target="_blank" class="map-btn kakao">
                 카카오 지도
               </a>
             </div>
@@ -301,7 +293,7 @@
             <!-- 전화번호 -->
             <div class="loc-contact">
               <h4>전화번호</h4>
-              <p>000-000-0000</p>
+              <p><a href="tel:032-545-7582" style="color:inherit;text-decoration:none;">032-545-7582</a></p>
             </div>
 
             <hr class="location-divider" />
@@ -309,7 +301,7 @@
             <!-- E-mail -->
             <div class="loc-contact">
               <h4>E-mail</h4>
-              <p>doduri@naver.com</p>
+              <p>doduri_ah@naver.com</p>
             </div>
 
           </div><!-- /.location-info -->
@@ -324,5 +316,35 @@
   <script src="js/include.js"></script>
   <script src="js/script.js"></script>
   <script src="js/sub.js"></script>
+  <script>
+    naver.maps.Service.geocode({ query: '인천 계양구 용종로 2' }, function(status, response) {
+      var lat, lng;
+      if (status === naver.maps.Service.Status.OK && response.v2.addresses.length > 0) {
+        lat = parseFloat(response.v2.addresses[0].y);
+        lng = parseFloat(response.v2.addresses[0].x);
+      } else {
+        // 주소 검색 실패 시 계양구 중심 좌표 fallback
+        lat = 37.5372;
+        lng = 126.7222;
+      }
+
+      var position = new naver.maps.LatLng(lat, lng);
+
+      var map = new naver.maps.Map('naver-map', {
+        center: position,
+        zoom: 17
+      });
+
+      var marker = new naver.maps.Marker({
+        position: position,
+        map: map
+      });
+
+      var infoWindow = new naver.maps.InfoWindow({
+        content: '<div style="padding:8px 12px;font-size:13px;font-weight:700;white-space:nowrap;">도두리동물병원</div>'
+      });
+      infoWindow.open(map, marker);
+    });
+  </script>
 </body>
 </html>
